@@ -25,6 +25,40 @@ function addBotMessage(html) {
   chatBody.scrollTop = chatBody.scrollHeight;
 }
 
+function showTyping() {
+  const div = document.createElement("div");
+  div.className = "botMsg typing";
+  div.id = "typingIndicator";
+  div.textContent = "Ciero AI is typing…";
+  chatBody.appendChild(div);
+  chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+function hideTyping() {
+  const typingDiv = document.getElementById("typingIndicator");
+  if (typingDiv) typingDiv.remove();
+}
+
+async function sendMessage() {
+  const msg = chatInput.value.trim();
+  if (!msg) return;
+
+  addUserMessage(msg);
+  chatInput.value = "";
+  chatInput.blur();
+
+  // Show typing indicator
+  showTyping();
+
+  // Simulate typing delay (0.5–1.5 sec)
+  const delay = 500 + Math.random() * 1000;
+  setTimeout(async () => {
+    hideTyping(); // remove typing indicator
+    const reply = await getBotReply(msg);
+    addBotMessage(reply);
+  }, delay);
+}
+
 /* =========================
    GREETINGS DATABASE
 ========================= */
