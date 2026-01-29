@@ -5,86 +5,68 @@
   <title>Ciero AI</title>
 
   <style>
-    body {
+ body {
+      margin: 0;
       font-family: Arial, sans-serif;
-    }
-
-    /* Toggle button */
-    #chatToggle {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: #673A94;
-      color: #fff;
-      padding: 10px 14px;
-      border-radius: 20px;
-      cursor: pointer;
-    }
-
-    /* Chatbot box */
-    #chatbot {
-      position: fixed;
-      bottom: 80px;
-      right: 20px;
-      width: 300px;
-      height: 400px;
-      background: #fff;
-      border: 1px solid #ccc;
-      border-radius: 10px;
+      background: #f5f5f5;
+      height: 100vh;
       display: flex;
       flex-direction: column;
-    }
-
-    .hidden {
-      display: none;
     }
 
     /* Header */
     #chatHeader {
       background: #673A94;
       color: white;
-      padding: 10px;
-      font-size: 14px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    #closeChat {
-      cursor: pointer;
+      padding: 14px;
+      font-size: 16px;
+      text-align: center;
     }
 
     /* Chat body */
     #chatBody {
       flex: 1;
-      padding: 10px;
+      padding: 12px;
       overflow-y: auto;
       background: #f7f7f7;
+      display: flex;
+      flex-direction: column;
     }
 
     .userMsg {
-      background: #DCF8C6;
-      padding: 8px 10px;
-      border-radius: 10px;
-      margin-bottom: 6px;
       align-self: flex-end;
+      background: #DCF8C6;
+      padding: 8px 12px;
+      border-radius: 12px;
+      margin-bottom: 8px;
       max-width: 80%;
     }
 
     .botMsg {
-      background: #eee;
-      padding: 8px 10px;
-      border-radius: 10px;
-      margin-bottom: 6px;
+      align-self: flex-start;
+      background: #ffffff;
+      padding: 8px 12px;
+      border-radius: 12px;
+      margin-bottom: 8px;
       max-width: 80%;
+      border: 1px solid #ddd;
     }
 
     /* Input area */
-    #chatInput {
-      border: none;
-      border-top: 1px solid #ccc;
+    .chat-input {
+      display: flex;
+      gap: 8px;
       padding: 10px;
+      background: #fff;
+      border-top: 1px solid #ddd;
+    }
+
+    #chatInput {
+      flex: 1;
+      padding: 10px 12px;
       font-size: 14px;
+      border-radius: 20px;
+      border: 1px solid #ccc;
       outline: none;
     }
 
@@ -94,17 +76,20 @@
     }
 
     #sendBtn {
-      border: none;
+      min-width: 44px;
       height: 44px;
       background: #673A94;
-      color: white;
+      border: none;
+      color: #ffffff;
+      border-radius: 50%;
       cursor: pointer;
+      font-size: 18px;
     }
 
-    /* Menu search */
-    .menu-search {
-      margin: 20px;
+    #sendBtn:hover {
+      background: #8456c9;
     }
+  
   </style>
 </head>
 
