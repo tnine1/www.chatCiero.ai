@@ -1,9 +1,13 @@
-const chatInput = document.getElementById("chatInput");
-const chatBody = document.getElementById("chatBody");
-const sendBtn = document.getElementById("sendBtn");
 
 /* =========================
-   UI helpers
+   ELEMENTS
+========================= */
+const chatInput = document.getElementById("chatInput");
+const chatBody  = document.getElementById("chatBody");
+const sendBtn   = document.getElementById("sendBtn");
+
+/* =========================
+   UI HELPERS
 ========================= */
 function addUserMessage(text) {
   const div = document.createElement("div");
@@ -16,29 +20,29 @@ function addUserMessage(text) {
 function addBotMessage(html) {
   const div = document.createElement("div");
   div.className = "botMsg";
-  div.innerHTML = html; // allow <br>
+  div.innerHTML = html;
   chatBody.appendChild(div);
   chatBody.scrollTop = chatBody.scrollHeight;
 }
 
 /* =========================
-   Greetings DB
+   GREETINGS DATABASE
 ========================= */
 const greetingsDB = [
   { greet: "hi", replies: ["Hello!", "Hi there!", "Hey!"] },
   { greet: "hello", replies: ["Hi!", "Hello!", "Hey there!"] },
-  { greet: "hey", replies: ["Hey! How are you?", "Hi!"] },
-  { greet: "good morning", replies: ["Good morning! ☀️", "Morning! How are you?"] },
-  { greet: "good afternoon", replies: ["Good afternoon! 😊"] },
-  { greet: "good evening", replies: ["Good evening! 🌙"] },
-  { greet: "how are you", replies: ["I’m good, thank you! How about you?", "Doing well! And you?"] },
+  { greet: "hey", replies: ["Hey! 😊", "Hi!"] },
+  { greet: "good morning", replies: ["Good morning ☀️"] },
+  { greet: "good afternoon", replies: ["Good afternoon 😊"] },
+  { greet: "good evening", replies: ["Good evening 🌙"] },
+  { greet: "how are you", replies: ["I’m good 😊 How about you?"] },
 ];
 
 function checkGreetings(input) {
-  const normalized = input.toLowerCase().trim();
-  for (const entry of greetingsDB) {
-    if (normalized.includes(entry.greet)) {
-      return entry.replies[Math.floor(Math.random() * entry.replies.length)];
+  const normalized = input.toLowerCase();
+  for (const item of greetingsDB) {
+    if (normalized.includes(item.greet)) {
+      return item.replies[Math.floor(Math.random() * item.replies.length)];
     }
   }
   return null;
@@ -86,7 +90,7 @@ async function countriesFallback(query) {
       `https://restcountries.com/v3.1/name/${encodeURIComponent(query)}`
     );
     const data = await res.json();
-    if (Array.isArray(data) && data.length) {
+    if (Array.isArray(data) && data.length > 0) {
       const c = data[0];
       return `
         <b>${c.name.common}</b><br>
@@ -99,42 +103,39 @@ async function countriesFallback(query) {
 }
 
 /* =========================
-   🤖 BOT BRAIN
+   BOT BRAIN
 ========================= */
 async function getBotReply(msg) {
-  const text = msg.toLowerCase();
+  const greeting = checkGreetings(msg);
+  if (greeting) return greeting;
 
-  // 1️⃣ Greetings
-  const greetReply = checkGreetings(text);
-  if (greetReply) return greetReply;
+  const lower = msg.toLowerCase();
 
-  // 2️⃣ Local rules
-  if (text.includes("who are you")) {
-    return "I’m <b>Ciero AI</b> 🤖, your virtual assistant.";
+  if (lower.includes("who are you")) {
+    return "I’m <b>Ciero AI</b> 🤖, your professional virtual assistant.";
   }
 
-  // 3️⃣ Internet fallback chain
-  const fallback =
+  // Internet fallback chain
+  const answer =
     (await wikiFallback(msg)) ||
     (await duckDuckGoFallback(msg)) ||
     (await numbersFallback(msg)) ||
     (await countriesFallback(msg));
 
-  if (fallback) {
-    return `Here’s what I found 🤍<br>${fallback}`;
+  if (answer) {
+    return `Here’s what I found 🤍<br><br>${answer}`;
   }
 
-  // 4️⃣ Final fallback
-  return "Sorry 😕 I couldn’t find a clear answer.<br>Try asking something else ✨";
+  return "Sorry 😕 I couldn’t find a clear answer. Try rephrasing your question.";
 }
 
 /* =========================
    SEND MESSAGE
 ========================= */
 async function sendMessage() {
-  if (!chatInput.value.trim()) return;
-
   const msg = chatInput.value.trim();
+  if (!msg) return;
+
   addUserMessage(msg);
   chatInput.value = "";
   chatInput.blur();
@@ -158,6 +159,6 @@ chatInput.addEventListener("keydown", e => {
 sendBtn.addEventListener("click", sendMessage);
 
 /* =========================
-   WELCOME
+   WELCOME MESSAGE
 ========================= */
 addBotMessage("Hello 👋 I’m <b>Ciero AI</b>. Ask me anything!");
