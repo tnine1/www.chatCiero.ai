@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ciero AI</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    /* Toggle button */
+    #chatToggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #673A94;
+      color: #fff;
+      padding: 10px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+
+    /* Chatbot box */
+    #chatbot {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      width: 300px;
+      height: 400px;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    /* Header */
+    #chatHeader {
+      background: #673A94;
+      color: white;
+      padding: 10px;
+      font-size: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #closeChat {
+      cursor: pointer;
+    }
+
+    /* Chat body */
+    #chatBody {
+      flex: 1;
+      padding: 10px;
+      overflow-y: auto;
+      background: #f7f7f7;
+    }
+
+    .userMsg {
+      background: #DCF8C6;
+      padding: 8px 10px;
+      border-radius: 10px;
+      margin-bottom: 6px;
+      align-self: flex-end;
+      max-width: 80%;
+    }
+
+    .botMsg {
+      background: #eee;
+      padding: 8px 10px;
+      border-radius: 10px;
+      margin-bottom: 6px;
+      max-width: 80%;
+    }
+
+    /* Input area */
+    #chatInput {
+      border: none;
+      border-top: 1px solid #ccc;
+      padding: 10px;
+      font-size: 14px;
+      outline: none;
+    }
+
+    #chatInput::placeholder {
+      font-size: 12px;
+      color: #888;
+    }
+
+    #sendBtn {
+      border: none;
+      height: 44px;
+      background: #673A94;
+      color: white;
+      cursor: pointer;
+    }
+
+    /* Menu search */
+    .menu-search {
+      margin: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div id="chatToggle">💬 ChatCiero</div>
+
+<!-- CHATBOT -->
+<div id="chatbot" class="hidden">
+
+  <div id="chatHeader">
+    I am Ciero AI – your virtual assistant
+    <span id="closeChat">✕</span>
+  </div>
+
+  <div id="chatBody"></div>
+
+  <input
+    type="text"
+    id="chatInput"
+    placeholder="Feel free to ask"
+  />
+  <button id="sendBtn">➡️</button>
+</div>
+
+<div class="menu-search">
+  <input 
+    type="text" 
+    id="menuSearch" 
+    placeholder="Search menu (coffee, juice...)"
+  >
+</div>
+
+<script src="chat.js" ></script>
+
+</body>
+</html>
