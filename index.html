@@ -110,33 +110,23 @@
 
 <body>
 
-<div id="chatToggle">💬 ChatCiero</div>
-
-<!-- CHATBOT -->
-<div id="chatbot" class="hidden">
-
+<!-- HEADER -->
   <div id="chatHeader">
     I am Ciero AI – your virtual assistant
-    <span id="closeChat">✕</span>
   </div>
 
+  <!-- CHAT BODY -->
   <div id="chatBody"></div>
 
-  <input
-    type="text"
-    id="chatInput"
-    placeholder="Feel free to ask"
-  />
-  <button id="sendBtn">➡️</button>
-</div>
-
-<div class="menu-search">
-  <input 
-    type="text" 
-    id="menuSearch" 
-    placeholder="Search menu (coffee, juice...)"
-  >
-</div>
+  <!-- INPUT -->
+  <div class="chat-input">
+    <input
+      type="text"
+      id="chatInput"
+      placeholder="Feel free to ask anything…"
+    />
+    <button id="sendBtn">➡️</button>
+  </div>
 
 <script src="chat.js" ></script>
 
